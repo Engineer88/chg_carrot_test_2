@@ -3,11 +3,20 @@
 import { z } from "zod";
 
 const formSchema = z.object({
-  email: z.string().email().toLowerCase(),
-  password: z.string({
-    required_error: "Password is required",
-  }),
-  username: z.string(),
+  email: z
+    .string()
+    .email()
+    .toLowerCase()
+    .refine((email) => email.endsWith("@zod.com"), {
+      message: "Email must be in '@zod.com' format",
+    }),
+  password: z
+    .string({ required_error: "Password is required" })
+    .min(10, { message: "Password must be at least 10 characters long" })
+    .regex(/\d/, { message: "Password must contain at least one number" }),
+  username: z
+    .string()
+    .min(5, { message: "Username must be at least 5 characters long" }),
 });
 
 export async function login(prevState: any, formData: FormData) {
