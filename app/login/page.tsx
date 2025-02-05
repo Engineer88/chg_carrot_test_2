@@ -1,8 +1,8 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import Input from "./components/input";
-import FormButton from "./components/button";
+import Input from "../components/input";
+import FormButton from "../components/button";
 import { login } from "./action";
 
 export default function Login() {
@@ -37,7 +37,7 @@ export default function Login() {
 
         <FormButton text="Log in" />
       </form>
-      {state?.success && (
+      {state && "success" in state && state.success && (
         <button className="w-full bg-green-500 text-white font-medium rounded-md text-center hover:bg-green-400 transition-colors h-10">
           Welcome
         </button>
